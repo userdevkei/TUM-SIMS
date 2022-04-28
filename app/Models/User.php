@@ -48,4 +48,9 @@ class User extends Authenticatable
 
         return $this->hasOne('App\Models\PasswordResets');
     }
+
+    public function verifyPhone(){
+
+        return $this->hasOne('App\Models\VerifyPhone');
+    }
 }

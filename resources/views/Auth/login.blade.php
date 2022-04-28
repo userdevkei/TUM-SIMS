@@ -9,6 +9,7 @@
                     <div class="block-header">
                         <h3 class="block-title">USER AUTHENTICATION</h3>
                     </div>
+                    <span class="alert alert-info"> <i class="fa fa-info-circle"></i> Verify your email to log in. </span>
                     <div class="block-content block-content-full">
                         {!! Form::open(['action' => 'App\Http\Controllers\StudentRegistration@login', 'method' => 'POST']) !!}
                         <div class="row">

@@ -10,7 +10,7 @@
                         <h3 class="block-title">Phone Verification :  {{ Auth::user()->regStudentPhone }}</h3>
                     </div>
                     <div class="block-content block-content-full">
-                        {!! Form::open(['action' => 'App\Http\Controllers\StudentRegistration@reVerify', 'method' => 'POST']) !!}
+                        {!! Form::open(['action' => 'App\Http\Controllers\StudentRegistration@verify', 'method' => 'POST']) !!}
                         {{--                        <form action="{{ route('storeDetails') }}" method="POST">--}}
                         <div class="row">
                             <div class="col-lg-4 text-center">

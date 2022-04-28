@@ -1,0 +1,13 @@
+{
+    "name": "LecturerEvaluation",
+    "alias": "lecturerevaluation",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\LecturerEvaluation\\Providers\\LecturerEvaluationServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

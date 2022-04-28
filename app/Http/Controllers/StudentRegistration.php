@@ -6,11 +6,13 @@ use App\Mail\ResetPassword;
 use App\Mail\VerifyMail;
 use App\Models\PasswordResets;
 use App\Models\User;
+use App\Models\VerifyPhone;
 use App\Models\VerifyUser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Twilio\Rest\Client;
 use Auth;
 use Session;
@@ -18,6 +20,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Validator;
+use Illuminate\Support\Arr;
 
 
 class StudentRegistration extends Controller
@@ -103,13 +106,18 @@ class StudentRegistration extends Controller
 
 
         /*---------------------------------------- send a sms verification code to the students phone number -----*/
-                $token = getenv("TWILIO_AUTH_TOKEN");
-                $twilio_sid = getenv("TWILIO_SID");
-                $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-                $twilio = new Client($twilio_sid, $token);
-                $twilio->verify->v2->services($twilio_verify_sid)
-                    ->verifications
-                    ->create(preg_replace('/0/', '+254', $request['student_phone'], 1), "sms");
+
+                $code = rand(1, 999999);
+
+                Http::withBasicAuth('demo', 'tum@swsap1')->asForm()->post('http://apis.tum.ac.ke/v1/sms/dispatch',[
+                    'mobile_number' => preg_replace('/0/', '+254', $request['student_phone'], 1),
+                    'text_message' => "Your phone verification code is"." ".$code.". ".""."Do not share this code with anyone"
+                ]);
+
+                VerifyPhone::create([
+                    'user_id' => $user->id,
+                    'verificationCode' => $code
+                ]);
 
                 return redirect()->route('openVerify')->with(['success' => 'Please verify your phone number', 'student_phone' => preg_replace('/0/', '+254', $request['student_phone'], 1)]);
             }
@@ -126,43 +134,47 @@ class StudentRegistration extends Controller
         ]);
 
     /*----------------------------------Verify the code send to the phone number ----------------------*/
-        $token = getenv("TWILIO_AUTH_TOKEN");
-        $twilio_sid = getenv("TWILIO_SID");
-        $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-        $twilio = new Client($twilio_sid, $token);
-        $verification = $twilio->verify->v2->services($twilio_verify_sid)
-            ->verificationChecks
-            ->create($request['verification_code'], array('to' => preg_replace('/0/', '+254', $request['student_phone'], 1)));
-        if ($verification->valid) {
-            $student = tap(User::where('regStudentPhone', preg_replace('/0/', '+254', $request['student_phone'], 1)))->update(['isVerified' => true]);
+        $verifyNumber = VerifyPhone::where('verificationCode', $request->verification_code)->first();
 
-            return redirect('openLogin')->with(['success' => 'Phone number verified']);
-        }
-        return back()->with(['student_phone' => $request['student_phone'], 'error' => 'Invalid verification code entered!']);
+           if (isset($verifyNumber)){
+
+                $user = $verifyNumber->user;
+
+                if (!$user->isVerified){
+                    $user->isVerified = 1;
+                    $user->save();
+
+                    return redirect('openLogin')->with(['success' => 'Phone number verified']);
+
+                    VerifyPhone::where('verificationCode', $verificationCode)->delete();
+                }
+               return back()->with(['student_phone' => $request['student_phone'], 'error' => 'Invalid verification code entered!']);
+            }
+
     }
 
-    protected function reVerify(Request $request){
-
-    /*--------------------------If for whatever reason phone number is required to be verified a fresh ------------------*/
-        $this->validate($request, [
-            'verification_code' => ['required', 'numeric'],
-            'student_phone' => ['required', 'string'],
-        ]);
-
-        $token = getenv("TWILIO_AUTH_TOKEN");
-        $twilio_sid = getenv("TWILIO_SID");
-        $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-        $twilio = new Client($twilio_sid, $token);
-        $verification = $twilio->verify->v2->services($twilio_verify_sid)
-            ->verificationChecks
-            ->create($request['verification_code'], array('to' => preg_replace('/0/', '+254', $request['student_phone'], 1)));
-        if ($verification->valid) {
-            $student = tap(User::where('regStudentPhone', preg_replace('/0/', '+254', $request['student_phone'], 1)))->update(['isVerified' => true]);
-
-            return redirect('dashboard')->with(['success' => 'Phone number verified']);
-        }
-        return back()->with(['student_phone' => $request['student_phone'], 'error' => 'Invalid verification code entered!']);
-    }
+//    protected function reVerify(Request $request){
+//
+//    /*--------------------------If for whatever reason phone number is required to be verified a fresh ------------------*/
+//        $this->validate($request, [
+//            'verification_code' => ['required', 'numeric'],
+//            'student_phone' => ['required', 'string'],
+//        ]);
+//
+//        $token = getenv("TWILIO_AUTH_TOKEN");
+//        $twilio_sid = getenv("TWILIO_SID");
+//        $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
+//        $twilio = new Client($twilio_sid, $token);
+//        $verification = $twilio->verify->v2->services($twilio_verify_sid)
+//            ->verificationChecks
+//            ->create($request['verification_code'], array('to' => preg_replace('/0/', '+254', $request['student_phone'], 1)));
+//        if ($verification->valid) {
+//            $student = tap(User::where('regStudentPhone', preg_replace('/0/', '+254', $request['student_phone'], 1)))->update(['isVerified' => true]);
+//
+//            return redirect('dashboard')->with(['success' => 'Phone number verified']);
+//        }
+//        return back()->with(['student_phone' => $request['student_phone'], 'error' => 'Invalid verification code entered!']);
+//    }
     /*------------------------------------------ Generate a new captcha to confirm thr user is not a robot ---------------------------*/
     public function reloadCaptcha(){
 
@@ -195,6 +207,11 @@ class StudentRegistration extends Controller
             ->get();
 
         return $oldstudent;
+    }
+
+    public function all(){
+        $oldstudent = DB::connection('sqlsrv')->table('tblstudents')->orderBy('colID', 'DESC')
+            ->where('studentsource', 'current')->get();
     }
 
     /*----------------------------------------return login view---------------------------------------*/
@@ -241,15 +258,19 @@ class StudentRegistration extends Controller
 
             if ($verifyPhone == true){
 
-                $token = getenv("TWILIO_AUTH_TOKEN");
-                $twilio_sid = getenv("TWILIO_SID");
-                $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-                $twilio = new Client($twilio_sid, $token);
-                $twilio->verify->v2->services($twilio_verify_sid)
-                    ->verifications
-                    ->create( Auth::user()->regStudentPhone, "sms");
+                $code = rand(1, 999999);
 
-                return redirect('re-verify')->with('success', 'Re-verify your phone number');
+                Http::withBasicAuth('demo', 'tum@swsap1')->asForm()->post('http://apis.tum.ac.ke/v1/sms/dispatch',[
+                    'mobile_number' => Auth::user()->regStudentPhone,
+                    'text_message' => "Your phone verification code is"." ".$code.". ".""."Do not share this code with anyone"
+                ]);
+
+                VerifyPhone::create([
+                    'user_id' => Auth::user()->id,
+                    'verificationCode' => $code
+                ]);
+
+                    return redirect('re-verify')->with('success', 'Re-verify your phone number');
             }
 
             $verifyEmail = User::where('regStudentNumber', '=', Auth::user()->regStudentNumber)
@@ -352,4 +373,26 @@ class StudentRegistration extends Controller
                 return redirect('openLogin')->with('success', 'Your password was changed successfully');
 
     }
+
+    public static function apiTest(){
+
+        $code = rand(0, 999999);
+
+        Http::withBasicAuth('demo', 'tum@swsap1')->asForm()->post('http://apis.tum.ac.ke/v1/sms/dispatch',[
+            'mobile_number' => "+254729434393",
+            'text_message' => "Your verification code is"." ".$code."."
+        ]);
+
+       $code = rand(0, 999999);
+
+        dd($code);
+
+        $response = Http::withBasicAuth('demo', 'tum@swsap1')->asForm()->post('http://apis.tum.ac.ke/v1/sms/dispatch',[
+            'mobile_number' => '+254729434393',
+            'text_message' => 'Hello Developer Kei'
+        ]);
+
+        dd($response);
+    }
 }
+
