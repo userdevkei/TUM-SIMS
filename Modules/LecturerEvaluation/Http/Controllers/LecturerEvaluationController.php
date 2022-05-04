@@ -2,6 +2,8 @@
 
 namespace Modules\LecturerEvaluation\Http\Controllers;
 
+use App\Models\Lecturer;
+use App\Models\Unit;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -12,9 +14,27 @@ class LecturerEvaluationController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
+
     public function index()
     {
-        return view('lecturerevaluation::index');
+        $unit = Unit::all();
+
+        $lecturer = Lecturer::all();
+
+
+
+//        $unitLecturer = Lecturer::where('unit_id', '=', $unit->id);
+//
+//        return $unitLecturer;
+
+//        $lecturer = $this->unit->id;
+//
+////        $lecturer = Lecturer::where('unit_id', '=', 2)->get();
+//
+////        return $unit;
+//        return $lecturer->unit->unitName;
+
+        return view('lecturerevaluation::index')->with('units', $unit);
     }
 
     /**

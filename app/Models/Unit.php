@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Unit extends Model
 {
     use HasFactory;
+
+    public function lecturer(){
+
+        $this->belongsTo('App\Models\Lecturer');
+    }
 }

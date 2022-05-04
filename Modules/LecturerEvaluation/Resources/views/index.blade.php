@@ -41,132 +41,33 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="text-center font-size-sm">1</td>
-                        <td class="font-w600 font-size-sm">
-                            <a href="#">CIT 2101</a>
-                        </td>
-                        <td class="d-none d-sm-table-cell font-size-sm">
-                            <em class="text-muted">Computer Applications 1</em>
-                        </td>
-                        <td class="d-none d-sm-table-cell">
-                            Mr. Kitili
-                        </td>
-                        <td>
-                            <span class="badge badge-danger">Not rated</span>
-                        </td>
-                        <td class="d-none d-sm-table-cell">
-                            <button type="button" class="btn btn-sm btn-alt-info" data-toggle="modal" data-target="#modal-block-fromright"> evaluate </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center font-size-sm">2</td>
-                        <td class="font-w600 font-size-sm">
-                            <a href="#">CIT 2101</a>
-                        </td>
-                        <td class="d-none d-sm-table-cell font-size-sm">
-                            <em class="text-muted">Computer Applications 1</em>
-                        </td>
-                        <td class="d-none d-sm-table-cell">
-                            Mr. Kitili
-                        </td>
-                        <td>
-                            <span class="badge badge-danger">Not rated</span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-alt-info" data-toggle="modal" data-target="#modal-block-fromright"> evaluate </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center font-size-sm">3</td>
-                        <td class="font-w600 font-size-sm">
-                            <a href="#">CIT 2101</a>
-                        </td>
-                        <td class="d-none d-sm-table-cell font-size-sm">
-                            <em class="text-muted">Computer Applications 1</em>
-                        </td>
-                        <td class="d-none d-sm-table-cell">
-                            Mr. Kitili
-                        </td>
-                        <td>
-                            <span class="badge badge-danger">Not rated</span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-alt-info" data-toggle="modal" data-target="#modal-block-fromright"> evaluate </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center font-size-sm">4</td>
-                        <td class="font-w600 font-size-sm">
-                            <a href="#">CIT 2101</a>
-                        </td>
-                        <td class="d-none d-sm-table-cell font-size-sm">
-                            <em class="text-muted">Computer Applications 1</em>
-                        </td>
-                        <td class="d-none d-sm-table-cell">
-                            Mr. Kitili
-                        </td>
-                        <td>
-                            <span class="badge badge-danger">Not rated</span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-alt-info" data-toggle="modal" data-target="#modal-block-fromright"> evaluate </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center font-size-sm">5</td>
-                        <td class="font-w600 font-size-sm">
-                            <a href="#">CIT 2101</a>
-                        </td>
-                        <td class="d-none d-sm-table-cell font-size-sm">
-                            <em class="text-muted">Computer Applications 1</em>
-                        </td>
-                        <td class="d-none d-sm-table-cell">
-                            Mr. Kitili
-                        </td>
-                        <td>
-                            <span class="badge badge-danger">Not rated</span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-alt-info" data-toggle="modal" data-target="#modal-block-fromright"> evaluate </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center font-size-sm">6</td>
-                        <td class="font-w600 font-size-sm">
-                            <a href="#">CIT 2101</a>
-                        </td>
-                        <td class="d-none d-sm-table-cell font-size-sm">
-                            <em class="text-muted">Computer Applications 1</em>
-                        </td>
-                        <td class="d-none d-sm-table-cell">
-                            Mr. Kitili
-                        </td>
-                        <td>
-                            <span class="badge badge-danger">Not rated</span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-alt-info" data-toggle="modal" data-target="#modal-block-fromright"> evaluate </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center font-size-sm">7</td>
-                        <td class="font-w600 font-size-sm">
-                            <a href="#">CIT 2101</a>
-                        </td>
-                        <td class="d-none d-sm-table-cell font-size-sm">
-                            <em class="text-muted">Computer Applications 1</em>
-                        </td>
-                        <td class="d-none d-sm-table-cell">
-                            Mr. Kitili
-                        </td>
-                        <td>
-                            <span class="badge badge-success">Not rated</span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-alt-info" data-toggle="modal" data-target="#modal-block-fromright"> evaluate </button>
-                        </td>
-                    </tr>
+{{--                        @if($units > 0)--}}
+{{--                            do something--}}
+{{--                        @else--}}
+{{--                            you have nothing to do--}}
+{{--                        @endif--}}
+
+                        @foreach($units as $unit)
+                            <tr>
+                            <td class="text-center font-size-sm">{{ $unit->id }}</td>
+                            <td class="font-w600 font-size-sm">
+                                <a href="#">{{ $unit->unitCode }}</a>
+                            </td>
+                            <td class="d-none d-sm-table-cell font-size-sm">
+                                <em class="text-muted">{{ $unit->unitName }}</em>
+                            </td>
+                                <td class="d-none d-sm-table-cell">
+                                    Mr. Kitili
+                                </td>
+                                <td>
+                                    <span class="badge badge-danger">Not rated</span>
+                                </td>
+                                <td class="d-none d-sm-table-cell">
+                                    <button type="button" class="btn btn-sm btn-alt-info" data-toggle="modal" data-target="#modal-block-fromright"> evaluate </button>
+                                </td>
+                            </tr>
+                        @endforeach
+
                     </tbody>
                 </table>
             </div>

@@ -2,25 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75cd4778-31b3-4484-a72b-6475c12d11b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/TUM-SIMS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TUM-SIMS.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LecturerEvaluation/Http/Controllers/LecturerEvaluationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/LecturerEvaluation/Http/Controllers/LecturerEvaluationController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/LecturerEvaluation/Resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/LecturerEvaluation/Resources/views/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/LecturerEvaluation/Resources/views/layouts/backend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/LecturerEvaluation/Resources/views/layouts/backend.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/LecturerEvaluation/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/LecturerEvaluation/Routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Auth/profile/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Auth/profile/profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/backend.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/blank.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/blank.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/datatables.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/datatables.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/slick.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/slick.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Lecturer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Lecturer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Unit.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Unit.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -171,10 +164,6 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
-      <option name="pathToComposerJson" value="$PROJECT_DIR$/composer.json" />
-      <method v="2" />
-    </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
@@ -188,7 +177,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1651485166641</updated>
-      <workItem from="1651485192064" duration="5942000" />
+      <workItem from="1651485192064" duration="8473000" />
+      <workItem from="1651658781092" duration="5215000" />
     </task>
     <servers />
   </component>
