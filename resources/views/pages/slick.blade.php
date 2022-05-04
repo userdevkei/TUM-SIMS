@@ -1,4 +1,4 @@
-@extends('layouts.backend')
+@extends('Modules.LecturerEvaluation.Resources.views.layouts.backend')
 
 @section('css_before')
     <link rel="stylesheet" href="{{ asset('js/plugins/slick-carousel/slick.css') }}">

@@ -12,5 +12,5 @@
 */
 
 Route::prefix('lecturerevaluation')->group(function() {
-    Route::get('/', 'LecturerEvaluationController@index');
+    Route::get('/lecturerEvaluation', 'LecturerEvaluationController@index')->name('lecturerEvaluation');
 });

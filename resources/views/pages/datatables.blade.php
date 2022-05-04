@@ -1,4 +1,4 @@
-@extends('layouts.backend')
+@extends('Modules.LecturerEvaluation.Resources.views.layouts.backend')
 
 @section('css_before')
     <!-- Page JS Plugins CSS -->

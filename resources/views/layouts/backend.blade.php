@@ -122,7 +122,7 @@
                 <!-- Side Header -->
                 <div class="content-header bg-white-5">
                     <!-- Logo -->
-                    <a class="font-w600 text-dual" href="/">
+                    <a class="font-w600 text-dual" href="{{ route('dashboard') }}">
                         <span class="smini-visible">
                             <i class="fa fa-circle-notch text-primary"></i>
                         </span>
@@ -217,16 +217,16 @@
                                     <span class="nav-main-link-name">Dashboard</span>
                                 </a>
                             </li>
-                            <li class="nav-main-heading">Various</li>
+                            <li class="nav-main-heading">Course</li>
                             <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">
                                 <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
                                     <i class="nav-main-link-icon si si-bulb"></i>
-                                    <span class="nav-main-link-name">Examples</span>
+                                    <span class="nav-main-link-name">Lecturer evaluation</span>
                                 </a>
                                 <ul class="nav-main-submenu">
                                     <li class="nav-main-item">
-                                        <a class="nav-main-link{{ request()->is('pages/datatables') ? ' active' : '' }}" href="/pages/datatables">
-                                            <span class="nav-main-link-name">DataTables</span>
+                                        <a class="nav-main-link{{ request()->is('pages/datatables') ? ' active' : '' }}" href="{{ route('lecturerEvaluation') }}">
+                                            <span class="nav-main-link-name">Evaluate</span>
                                         </a>
                                     </li>
                                     <li class="nav-main-item">
@@ -241,6 +241,29 @@
                                     </li>
                                 </ul>
                             </li>
+{{--                            <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">--}}
+{{--                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">--}}
+{{--                                    <i class="nav-main-link-icon si si-bulb"></i>--}}
+{{--                                    <span class="nav-main-link-name">Examples</span>--}}
+{{--                                </a>--}}
+{{--                                <ul class="nav-main-submenu">--}}
+{{--                                    <li class="nav-main-item">--}}
+{{--                                        <a class="nav-main-link{{ request()->is('pages/datatables') ? ' active' : '' }}" href="/pages/datatables">--}}
+{{--                                            <span class="nav-main-link-name">DataTables</span>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="nav-main-item">--}}
+{{--                                        <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}" href="/pages/slick">--}}
+{{--                                            <span class="nav-main-link-name">Slick Slider</span>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="nav-main-item">--}}
+{{--                                        <a class="nav-main-link{{ request()->is('pages/blank') ? ' active' : '' }}" href="/pages/blank">--}}
+{{--                                            <span class="nav-main-link-name">Blank</span>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                </ul>--}}
+{{--                            </li>--}}
                             <li class="nav-main-heading">More</li>
                             <li class="nav-main-item open">
                                 <a class="nav-main-link" href="/">
@@ -278,9 +301,9 @@
 
                         <!-- Apps Modal -->
                         <!-- Opens the Apps modal found at the bottom of the page, after footer’s markup -->
-                        <button type="button" class="btn btn-sm btn-dual mr-2" data-toggle="modal" data-target="#one-modal-apps">
-                            <i class="fa fa-fw fa-cubes"></i>
-                        </button>
+{{--                        <button type="button" class="btn btn-sm btn-dual mr-2" data-toggle="modal" data-target="#one-modal-apps">--}}
+{{--                            <i class="fa fa-fw fa-cubes"></i>--}}
+{{--                        </button>--}}
                         <!-- END Apps Modal -->
 
                         <!-- Open Search Section (visible on smaller screens) -->
@@ -319,7 +342,7 @@
                                 <div class="p-3 text-center bg-primary-dark rounded-top">
                                     <img class="img-avatar img-avatar48 img-avatar-thumb" src="{{ asset('media/avatars/avatar10.jpg') }}" alt="">
                                     <p class="mt-2 mb-0 text-white font-w500">{{ Auth::user()->regStudentName }}</p>
-                                    <p class="mb-0 text-white-50 font-size-sm">Web Developer</p>
+                                    <p class="mb-0 text-white-50 font-size-sm">{{ Auth::user()->campus }}</p>
                                 </div>
                                 <div class="p-2">
                                     <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
@@ -334,9 +357,9 @@
                                         <span class="font-size-sm font-w500">Settings</span>
                                     </a>
                                     <div role="separator" class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                                    <!----- a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
                                         <span class="font-size-sm font-w500">Lock Account</span>
-                                    </a>
+                                    </a-->
                                     <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ route('logout') }}">
                                         <span class="font-size-sm font-w500">Log Out</span>
                                     </a>
@@ -486,10 +509,11 @@
                 <div class="content py-3">
                     <div class="row font-size-sm">
                         <div class="col-sm-6 order-sm-2 py-1 text-center text-sm-right">
-                            Crafted with <i class="fa fa-heart text-danger"></i> by <a class="font-w600" href="https://1.envato.market/ydb" target="_blank">pixelcave</a>
+                            Crafted with <i class="fa fa-heart text-primary-dark"></i> by <a class="font-w600" href="#" target="_top">TUM ICTS</a>
                         </div>
                         <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-left">
-                            <a class="font-w600" href="https://1.envato.market/AVD6j" target="_blank">OneUI</a> &copy; <span data-toggle="year-copy"></span>
+                            <a class="font-w600" href="https://www.tum.ac.ke/" target="_blank">
+                                Technical University of Mombasa</a> &copy; <span data-toggle="year-copy"></span>
                         </div>
                     </div>
                 </div>
